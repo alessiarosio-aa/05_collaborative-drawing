@@ -1,0 +1,23 @@
+{
+  "name": "05_collaborative-drawing",
+  "version": "1.0.0",
+  "description": "collaborative drawing",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alessiarosio-aa/05_collaborative-drawing.git"
+  },
+  "author": "alessia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alessiarosio-aa/05_collaborative-drawing/issues"
+  },
+  "homepage": "https://github.com/alessiarosio-aa/05_collaborative-drawing#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
