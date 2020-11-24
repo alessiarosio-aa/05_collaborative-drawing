@@ -33,6 +33,9 @@ function newConnection(socket) { // mettiamo socket tra parentesi perchè diamo 
 
   console.log("new connection: " + socket.client.id);
 
+  let clientColor = getRandomColor();
+  socket.emit("color", clientColor); // mandiamo indeitro al cliente un messaggio di nome color e come colore il nuovo colore generato con la funzione getRandomColor
+
     // ora dobbiamo dire al server: quando ricevi il messaggio mouse (che è nello skatch) fai qualcosa
   socket.on("mouse", mouseMessage) // stiamo dicendo che quando il server riceve il messaggio mouse deve eseguire la funzione mouseMessage
     // stiamo dicendo: quando un nuovo messaggio (grazie ai socket) viene iniviato dal cliente esegui la funzione mouseMessage
@@ -48,4 +51,13 @@ function mouseMessage(dataRecived) { // questa funzione prende i dati ricevuti e
     // qui stiamo dicendo al server di prendere questi dati e trasmetterli a tutte le altre connessioni (clienti) tranne a colui che li ha inviati
     // ora dobbiamo andare nello scketh e dire cosa deve fare quando il mouse trasmette le proprie coordinate e il messaggio viene inviato
   }
+}
+
+function getRandomColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
