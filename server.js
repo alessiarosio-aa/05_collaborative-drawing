@@ -29,18 +29,23 @@ io.on("connection", newConnection); // on si riferisce al tipo di evento, ovverr
     // stiamo dicendo: quando c'è un messaggio che si chiama connection esegui la funzione chiamata newConnection che definiamo qui sotto
 
 function newConnection(socket) { // mettiamo socket tra parentesi perchè diamo un nome per riconoscerlo, lo chiamiamo così perchè è il messaggio in arrivo
+    // ci dà la connessione unica del cliente
+
   console.log("new connection: " + socket.client.id);
 
     // ora dobbiamo dire al server: quando ricevi il messaggio mouse (che è nello skatch) fai qualcosa
   socket.on("mouse", mouseMessage) // stiamo dicendo che quando il server riceve il messaggio mouse deve eseguire la funzione mouseMessage
-
-}
+    // stiamo dicendo: quando un nuovo messaggio (grazie ai socket) viene iniviato dal cliente esegui la funzione mouseMessage
 
     // se avvio il server così non funziona perchè il socket va caricato anche sul computer del "cliente" per rendere la comunicazione possibile
     // però va caricato nello skatch che sarà caricato dal cliente
 
-function mouseMessage(dataRecived) {
-  console.log(dataRecived);
-}
+function mouseMessage(dataRecived) { // questa funzione prende i dati ricevuti e li esegue/spedisce al server
+  console.log(socket.client.id, dataRecived); // stiamo in questo modo eseguendo l'id del socket (della connessione) che manda i dati e i dati stessi
+    // fino a qui abbiamo mandato messaggi solo tra un cliente e il server, ora dobbiamo far si che quello che riceve il server venga mandato a tutti gli altri clienti
 
-  // fino a qui abbiamo mandato messaggi solo tra un cliente e il server, ora dobbiamo far si che quello che riceve il server venga mandato a tutti gli altri clienti
+  socket.broadcast.emit("mouseBroadcast", dataRecived); // così creiamo un nuovo messaggio chiamato come vogliamo (nel caso mouseBroadcast) con i dati ricevuti dal cliente
+    // qui stiamo dicendo al server di prendere questi dati e trasmetterli a tutte le altre connessioni (clienti) tranne a colui che li ha inviati
+    // ora dobbiamo andare nello scketh e dire cosa deve fare quando il mouse trasmette le proprie coordinate e il messaggio viene inviato
+  }
+}
